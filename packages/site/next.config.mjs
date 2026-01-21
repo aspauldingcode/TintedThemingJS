@@ -1,3 +1,4 @@
+// Next.js configuration for TintedTheming site
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
