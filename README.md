@@ -246,3 +246,4 @@ MIT License - see [LICENSE](LICENSE) for details.
 ---
 
 Made with ❤️ for the theming community
+
