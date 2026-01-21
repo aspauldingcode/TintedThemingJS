@@ -1,0 +1,42 @@
+{
+    "name": "@tinted-theming/react",
+    "version": "0.1.0",
+    "description": "React hooks and components for Base16/Base24 themes",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [
+        "base16",
+        "base24",
+        "themes",
+        "react",
+        "hooks",
+        "tinted-theming"
+    ],
+    "author": "Alex Spaulding",
+    "license": "MIT",
+    "peerDependencies": {
+        "@tinted-theming/core": "^0.1.0",
+        "react": "^18.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.48",
+        "react": "^18.2.0",
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
+    }
+}

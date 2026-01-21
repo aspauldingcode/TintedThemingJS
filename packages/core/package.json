@@ -1,0 +1,38 @@
+{
+    "name": "@tinted-theming/core",
+    "version": "0.1.0",
+    "description": "TypeScript API for Base16 and Base24 color themes",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [
+        "base16",
+        "base24",
+        "themes",
+        "colors",
+        "tinted-theming"
+    ],
+    "author": "Alex Spaulding",
+    "license": "MIT",
+    "dependencies": {
+        "yaml": "^2.3.4"
+    },
+    "devDependencies": {
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "tinted-theming-js",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript/JavaScript API for Base16 and Base24 color themes",
+  "author": "Alex Spaulding",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspace=packages/site",
+    "test": "npm run test --workspaces --if-present",
+    "clean": "rm -rf packages/*/dist packages/*/.next packages/*/node_modules node_modules"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
