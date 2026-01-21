@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from '@tinted-theming/react'
+import { useTheme, QuickStartCode } from '@tinted-theming/react'
 
 export default function Home() {
     const theme = useTheme()
@@ -89,13 +89,17 @@ export default function Home() {
                             {theme.variant}
                         </span>
                     </div>
+                    <div>
+                        <strong style={{ color: 'var(--base04)' }}>DOM Attr:</strong>{' '}
+                        <code style={{ fontSize: '0.8rem' }}>data-variant="{theme.variant}"</code>
+                    </div>
                 </div>
             </section>
 
             {/* Color Palette */}
             <section style={{ marginBottom: '3rem' }}>
                 <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--base0D)' }}>
-                    Base16 Color Palette
+                    {theme.system.toUpperCase()} Color Palette
                 </h2>
                 <div style={{
                     display: 'grid',
@@ -201,25 +205,7 @@ export default function Home() {
                 <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--base0D)' }}>
                     Quick Start
                 </h2>
-                <pre style={{
-                    backgroundColor: 'var(--base00)',
-                    padding: '1rem',
-                    borderRadius: '6px',
-                    overflow: 'auto',
-                    fontSize: '0.85rem',
-                    border: '1px solid var(--base02)',
-                }}>
-                    <code>{`import { ThemeProvider } from '@tinted-theming/react'
-import { defaultDark } from '@tinted-theming/core'
-
-function App() {
-  return (
-    <ThemeProvider theme={defaultDark} applyStyles>
-      <YourApp />
-    </ThemeProvider>
-  )
-}`}</code>
-                </pre>
+                <QuickStartCode framework="nextjs" />
             </section>
         </main>
     )

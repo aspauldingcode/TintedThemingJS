@@ -11,6 +11,7 @@ import type { Base16ThemeData } from './types.js'
  * Base24 Theme class providing access to 24 colors and metadata
  */
 export class Base24Theme {
+    readonly system = 'base24'
     readonly name: string
     readonly author?: string
     readonly variant: ThemeVariant

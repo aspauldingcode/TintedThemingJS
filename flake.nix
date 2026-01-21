@@ -71,10 +71,38 @@
           '';
           
           installPhase = ''
-            mkdir -p $out
+            mkdir -p $out/bin
             cp -r packages/core/dist $out/core
             cp -r packages/react/dist $out/react
+            
+            # Create a simple wrapper to run the site
+            # We assume we are in the source directory when running this
+            cat <<EOF > $out/bin/tinted-theming-site
+            #!/bin/sh
+            npm run dev --workspace=packages/site
+            EOF
+            chmod +x $out/bin/tinted-theming-site
           '';
+        };
+
+        apps = rec {
+          dev = {
+            type = "app";
+            program = "${pkgs.writeShellScriptBin "dev-site" ''
+              export PATH=${pkgs.nodejs_20}/bin:${pkgs.nodePackages.npm}/bin:$PATH
+              
+              # Function to cleanup background processes on exit
+              cleanup() {
+                echo "Shutting down..."
+                kill $(jobs -p) 2>/dev/null
+              }
+              trap cleanup EXIT INT TERM
+
+              echo "Starting Development Environment..."
+              npm run dev
+            ''}/bin/dev-site";
+          };
+          default = dev;
         };
       }
     );

@@ -35,7 +35,8 @@ export class ThemesLoader {
     private readonly ref: string
 
     constructor(options: LoaderOptions = {}) {
-        this.fetchFn = options.fetch ?? fetch
+        // Wrap fetch to ensure proper context (fixes "Illegal invocation" in some browsers)
+        this.fetchFn = options.fetch ?? ((...args) => fetch(...args))
         this.baseUrl = options.baseUrl ?? DEFAULT_BASE_URL
         this.ref = options.ref ?? DEFAULT_REF
     }
@@ -126,5 +127,39 @@ export class ThemesLoader {
      */
     async loadThemes(paths: string[]): Promise<Array<Base16Theme | Base24Theme>> {
         return Promise.all(paths.map((path) => this.loadTheme(path)))
+    }
+
+    /**
+     * List all themes available in the remote repository
+     * @param system - Optional system to filter by ('base16' or 'base24')
+     * @returns Array of relative paths to theme files
+     */
+    async listThemes(system?: 'base16' | 'base24'): Promise<string[]> {
+        const systems: Array<'base16' | 'base24'> = system ? [system] : ['base16', 'base24']
+
+        const allPaths = await Promise.all(
+            systems.map(async (s) => {
+                const url = `https://api.github.com/repos/tinted-theming/schemes/contents/${s}?ref=${this.ref}`
+                console.log(`[ThemesLoader] Fetching: ${url}`)
+                const response = await this.fetchFn(url)
+
+                if (!response.ok) {
+                    console.error(`[ThemesLoader] Failed to fetch ${url}: ${response.status} ${response.statusText}`)
+                    throw new Error(`Failed to list ${s} themes: ${response.statusText}`)
+                }
+
+                const data = await response.json() as Array<{ name: string; path: string; type: string }>
+                const filtered = data
+                    .filter((item) => item.type === 'file' && item.name.endsWith('.yaml'))
+                    .map((item) => `${s}/${item.name}`)
+
+                console.log(`[ThemesLoader] Found ${filtered.length} themes in ${s}`)
+                return filtered
+            })
+        )
+
+        const result = allPaths.flat()
+        console.log(`[ThemesLoader] Total themes found: ${result.length}`)
+        return result
     }
 }

@@ -9,6 +9,7 @@ import type {
  * Base16 Theme class providing access to colors and metadata
  */
 export class Base16Theme {
+    readonly system = 'base16'
     readonly name: string
     readonly author?: string
     readonly variant: ThemeVariant

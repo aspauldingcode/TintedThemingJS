@@ -6,15 +6,31 @@
   "author": "Alex Spaulding",
   "license": "MIT",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/examples/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
-    "dev": "npm run dev --workspace=packages/site",
-    "test": "npm run test --workspaces --if-present",
+    "dev": "concurrently \"npm run dev:site\" \"npm run dev:vite\" \"npm run dev:vanilla-js\" \"npm run dev:vanilla-ts\" \"npm run dev:remix\"",
+    "dev:site": "npm run dev --workspace=packages/site",
+    "dev:vite": "npm run dev --workspace=packages/examples/vite-react",
+    "dev:vanilla-js": "npm run dev --workspace=packages/examples/vanilla-js",
+    "dev:vanilla-ts": "npm run dev --workspace=packages/examples/vanilla-ts",
+    "dev:remix": "npm run dev --workspace=packages/examples/remix",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "clean": "rm -rf packages/*/dist packages/*/.next packages/*/node_modules node_modules"
   },
   "devDependencies": {
-    "typescript": "^5.3.3"
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/coverage-v8": "^4.0.17",
+    "concurrently": "^9.2.1",
+    "jsdom": "^27.4.0",
+    "typescript": "^5.3.3",
+    "vitest": "^4.0.17"
   }
 }
