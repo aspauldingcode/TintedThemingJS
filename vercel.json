@@ -1,0 +1,6 @@
+{
+    "buildCommand": "npm run build --workspace=packages/core --workspace=packages/react --workspace=packages/site",
+    "devCommand": "npm run dev --workspace=packages/site",
+    "installCommand": "npm install",
+    "outputDirectory": "packages/site/.next"
+}
